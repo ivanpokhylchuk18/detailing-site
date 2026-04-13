@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="IVAN Detail Co. — Professional auto detailing in Newburgh, Indiana. Interior, exterior, and full detail packages. Book online today."/>
+  <meta property="og:title" content="IVAN Detail Co. — Premium Auto Detailing"/>
+  <meta property="og:description" content="Professional interior & exterior detailing in Newburgh, IN. Book online."/>
+  <meta property="og:type" content="website"/>
+  <title>IVAN Detail Co. — Premium Auto Detailing | Newburgh, IN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- ✅ Relative path — works on GitHub Pages -->
+  <link rel="stylesheet" href="static/css/style.css" />
+</head>
+<body>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-trail" id="cursorTrail"></div>
+
+  <!-- NAV -->
+  <nav class="nav" id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <span class="logo-apex">IVAN</span><span class="logo-detail">DETAIL</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#booking" class="nav-cta">Book Now</a>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-mobile" id="mobileMenu">
+      <ul>
+        <li><a href="#services" class="mobile-link">Services</a></li>
+        <li><a href="#process" class="mobile-link">Process</a></li>
+        <li><a href="#gallery" class="mobile-link">Gallery</a></li>
+        <li><a href="#contact" class="mobile-link">Contact</a></li>
+        <li><a href="#booking" class="mobile-link">Book Now</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+      <div class="hero-glow"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-tag">
+        <span class="tag-dot"></span>
+        <span>Professional Auto Detailing — Newburgh, IN</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="line-reveal">YOUR CAR.</span>
+        <span class="line-reveal delay-1">PERFECTED.</span>
+      </h1>
+      <p class="hero-tagline line-reveal delay-2">IVAN — Ideal Vehicle Appearance &amp; Neatness</p>
+      <p class="hero-sub line-reveal delay-3">
+        Premium interior &amp; exterior detailing that restores your vehicle<br>
+        to showroom condition — every single time.
+      </p>
+      <div class="hero-actions line-reveal delay-4">
+        <a href="#booking" class="btn-primary">Book a Detail</a>
+        <a href="#services" class="btn-ghost">See Services</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <span>Interior Detail</span><span class="tick-dot">✦</span>
+      <span>Paint Correction</span><span class="tick-dot">✦</span>
+      <span>Exterior Wash</span><span class="tick-dot">✦</span>
+      <span>Clay Bar Treatment</span><span class="tick-dot">✦</span>
+      <span>Odor Elimination</span><span class="tick-dot">✦</span>
+      <span>Wheel Detail</span><span class="tick-dot">✦</span>
+      <span>Leather Conditioning</span><span class="tick-dot">✦</span>
+      <span>Tire Dressing</span><span class="tick-dot">✦</span>
+      <span>Interior Detail</span><span class="tick-dot">✦</span>
+      <span>Paint Correction</span><span class="tick-dot">✦</span>
+      <span>Exterior Wash</span><span class="tick-dot">✦</span>
+      <span>Clay Bar Treatment</span><span class="tick-dot">✦</span>
+      <span>Odor Elimination</span><span class="tick-dot">✦</span>
+      <span>Wheel Detail</span><span class="tick-dot">✦</span>
+      <span>Leather Conditioning</span><span class="tick-dot">✦</span>
+      <span>Tire Dressing</span><span class="tick-dot">✦</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">What We Offer</span>
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-sub">Every package is performed with professional-grade products and obsessive attention to detail.</p>
+      </div>
+
+      <div class="services-grid">
+
+        <!-- Card 1: Interior -->
+        <div class="service-card" data-aos="fade-up">
+          <div class="card-accent"></div>
+          <div class="card-icon">
+            <svg viewBox="0 0 40 40" fill="none">
+              <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M12 26c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="20" cy="15" r="3" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="card-label">Most Popular</div>
+          <h3>Interior Detail</h3>
+          <p>Deep vacuum, steam cleaning, leather conditioning, odor elimination, and full surface wipe-down.</p>
+          <ul class="service-list">
+            <li>Full vacuum &amp; extraction</li>
+            <li>Steam clean vents &amp; crevices</li>
+            <li>Leather &amp; vinyl treatment</li>
+            <li>Interior glass cleaning</li>
+          </ul>
+          <div class="card-price">
+            <span class="price-from">From</span>
+            <span class="price-num">$120</span>
+          </div>
+          <a href="#booking" class="card-cta">Book This</a>
+        </div>
+
+        <!-- Card 2: Exterior -->
+        <div class="service-card service-card--featured" data-aos="fade-up" data-aos-delay="100">
+          <div class="card-accent"></div>
+          <div class="card-icon">
+            <svg viewBox="0 0 40 40" fill="none">
+              <path d="M8 28l4-12h16l4 12H8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M6 28h28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="14" cy="32" r="2" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="26" cy="32" r="2" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="card-label card-label--red">Best Value</div>
+          <h3>Exterior Detail</h3>
+          <p>Professional exterior wash and protection — keeping your vehicle looking showroom fresh.</p>
+          <ul class="service-list">
+            <li>Two-stage exterior wash</li>
+            <li>Wheel &amp; tire cleaning</li>
+            <li>Spray wax protection</li>
+            <li>Tire dressing &amp; shine</li>
+          </ul>
+          <div class="card-price">
+            <span class="price-from">From</span>
+            <span class="price-num">$180</span>
+          </div>
+          <a href="#booking" class="card-cta">Book This</a>
+        </div>
+
+        <!-- Card 3: All-in-One HERO CARD -->
+        <div class="service-card service-card--gold" data-aos="fade-up" data-aos-delay="200">
+          <div class="card-shimmer"></div>
+          <div class="card-accent"></div>
+          
+          <div class="card-icon card-icon--gold">
+            <svg viewBox="0 0 40 40" fill="none">
+              <path d="M20 6l2.8 8.6H32l-7.4 5.4 2.8 8.6L20 23.2l-7.4 4.4 2.8-8.6L8 13.6h9.2L20 6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="card-label card-label--gold">Premium Class</div>
+          <h3 class="card-title--gold">All-in-One Detail</h3>
+          <p>The complete transformation — every inch of your vehicle detailed to perfection, inside and out.</p>
+          <ul class="service-list service-list--gold">
+            <li>Everything in Interior Detail</li>
+            <li>Everything in Exterior Detail</li>
+            <li>Clay bar decontamination</li>
+            <li>Leather conditioning</li>
+            <li>Odor elimination treatment</li>
+            <li>Final inspection &amp; touch-up</li>
+          </ul>
+          <div class="card-price">
+            <span class="price-from">From</span>
+            <span class="price-num price-num--gold">$250</span>
+          </div>
+          <a href="#booking" class="card-cta card-cta--gold">Book This →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process" id="process">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">How It Works</span>
+        <h2 class="section-title">The Process</h2>
+        <p class="section-sub">Simple, transparent, and built around your schedule.</p>
+      </div>
+      <div class="process-steps">
+        <div class="process-line"></div>
+        <div class="process-step" data-aos="fade-right">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <h3>Book Online</h3>
+            <p>Fill out the booking form with your vehicle info and preferred service. You'll get a confirmation within 2 hours.</p>
+          </div>
+        </div>
+        <div class="process-step" data-aos="fade-right" data-aos-delay="100">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <h3>Drop Off or Mobile</h3>
+            <p>Bring your car to us or choose mobile service — we come to your home or workplace.</p>
+          </div>
+        </div>
+        <div class="process-step" data-aos="fade-right" data-aos-delay="200">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <h3>We Get to Work</h3>
+            <p>Every detail is performed with professional-grade products and tools. No shortcuts, ever.</p>
+          </div>
+        </div>
+        <div class="process-step" data-aos="fade-right" data-aos-delay="300">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <h3>Pickup &amp; Inspect</h3>
+            <p>Walk around your car with us. If anything isn't perfect, we fix it on the spot. Guaranteed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="gallery">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Our Work</span>
+        <h2 class="section-title">Before &amp; After</h2>
+        <p class="section-sub">Results speak louder than words.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item tall" data-aos="fade-up">
+          <div class="gallery-placeholder">
+            <div class="gp-inner">
+              <span class="gp-label">Interior</span>
+              <span class="gp-sub">Before &amp; After</span>
+            </div>
+          </div>
+          <div class="gallery-overlay"><span>Interior Detail</span></div>
+        </div>
+        <div class="gallery-item" data-aos="fade-up" data-aos-delay="80">
+          <div class="gallery-placeholder gp2">
+            <div class="gp-inner">
+              <span class="gp-label">Wheels</span>
+              <span class="gp-sub">Before &amp; After</span>
+            </div>
+          </div>
+          <div class="gallery-overlay"><span>Wheel Detail</span></div>
+        </div>
+        <div class="gallery-item wide" data-aos="fade-up" data-aos-delay="160">
+          <div class="gallery-placeholder gp4">
+            <div class="gp-inner">
+              <span class="gp-label">Exterior</span>
+              <span class="gp-sub">Before &amp; After</span>
+            </div>
+          </div>
+          <div class="gallery-overlay"><span>Exterior Detail</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">What Clients Say</span>
+        <h2 class="section-title">Reviews</h2>
+        <p class="section-sub">Real customers, real results.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card" data-aos="fade-up">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-text">"Ivan did an absolutely incredible job on my truck. The interior looked better than when I bought it. Highly recommend!"</p>
+          <div class="t-author">
+            <div class="t-avatar">M</div>
+            <div>
+              <div class="t-name">Marcus T.</div>
+              <div class="t-vehicle">2019 Ford F-150</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-text">"Got the All-in-One package and my car looks brand new. Paint is shining, interior smells amazing. Worth every dollar."</p>
+          <div class="t-author">
+            <div class="t-avatar">S</div>
+            <div>
+              <div class="t-name">Sarah K.</div>
+              <div class="t-vehicle">2021 Honda Accord</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-text">"Super professional, showed up on time, and the results were insane. My black car has zero swirl marks now. Booked again already."</p>
+          <div class="t-author">
+            <div class="t-avatar">D</div>
+            <div>
+              <div class="t-name">Devon R.</div>
+              <div class="t-vehicle">2020 BMW 3 Series</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section class="booking" id="booking">
+    <div class="container">
+      <div class="booking-inner">
+        <div class="booking-left" data-aos="fade-right">
+          <span class="section-tag">Get Started</span>
+          <h2 class="section-title">Book a Detail</h2>
+          <p>Fill out the form and we'll confirm your appointment within 2 hours. Mobile service available within 30 miles of Newburgh.</p>
+          <div class="booking-perks">
+            <div class="perk"><span class="perk-icon">✓</span> Free inspection included</div>
+            <div class="perk"><span class="perk-icon">✓</span> Satisfaction guaranteed</div>
+            <div class="perk"><span class="perk-icon">✓</span> Mobile service available</div>
+            <div class="perk"><span class="perk-icon">✓</span> No hidden fees</div>
+          </div>
+          <div class="booking-note">
+            📱 Prefer to text? Send your info to <strong><a href="tel:8122023585">(812) 202-3585</a></strong>
+          </div>
+        </div>
+        <div class="booking-right" data-aos="fade-left">
+          <!-- 
+            ══════════════════════════════════════════════════
+            FORMSPREE SETUP (FREE — replaces Flask backend)
+            ══════════════════════════════════════════════════`
+            1. Go to https://formspree.io and sign up free
+            2. Create a new form → copy your form ID
+            3. Replace YOUR_FORMSPREE_ID below with it
+               Example: https://formspree.io/f/xpwzabcd
+            4. Every submission emails you AND logs to your dashboard
+            ══════════════════════════════════════════════════
+          -->
+          <form
+            class="booking-form"
+            id="bookingForm"
+            action="https://script.google.com/macros/s/AKfycbxPYMJVXExZbwI8dc_MW8lhlcoNw4dDGoNATMiuisqWC2nVqeYlq1nBy5KX7HrhtYgX/exec"
+            method="POST"
+          >
+            <!-- Hidden fields for better email formatting -->
+            <input type="hidden" name="_subject" value="New Booking Request — IVAN Detail Co." />
+            <input type="hidden" name="_next" value="#booking" />
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" name="first_name" placeholder="John" required />
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" name="last_name" placeholder="Doe" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Phone</label>
+                <input type="tel" name="phone" placeholder="(555) 000-0000" required />
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="john@email.com" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Vehicle Year &amp; Make</label>
+                <input type="text" name="vehicle" placeholder="2020 Toyota Camry" required />
+              </div>
+              <div class="form-group">
+                <label>Preferred Date</label>
+                <input type="date" name="date" required />
+              </div>
+            </div>
+            <div class="form-group full">
+              <label>Service</label>
+              <select name="service" required>
+                <option value="" disabled selected>Select a service</option>
+                <option value="Interior Detail — $120+">Interior Detail — From $120</option>
+                <option value="Exterior Detail — $180+">Exterior Detail — From $180</option>
+                <option value="All-in-One Detail — $250+">All-in-One Detail — From $250</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label>Notes (optional)</label>
+              <textarea name="notes" placeholder="Any specific concerns, pet hair, stains, etc." rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn-primary full-btn" id="submitBtn">
+              <span class="btn-text">Request Booking</span>
+              <span class="btn-loading" style="display:none">Sending...</span>
+            </button>
+            <div class="form-success" id="formSuccess">
+              <span>✓</span> Booking request sent! We'll confirm within 2 hours.
+            </div>
+            <div class="form-error" id="formError">
+              Something went wrong. Please call us at (812) 202-3585.
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Got Questions?</span>
+        <h2 class="section-title">FAQ</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item" data-aos="fade-up">
+          <button class="faq-question">
+            <span>How long does a full detail take?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Interior only takes 2–3 hours. Exterior only is about 1.5–2 hours. The All-in-One package typically takes 4–5 hours for a thorough job.</p>
+          </div>
+        </div>
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="50">
+          <button class="faq-question">
+            <span>Do you offer mobile service?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes! We come to your home or workplace within 30 miles of Newburgh, IN. Just make sure there's access to a water source for exterior services.</p>
+          </div>
+        </div>
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+          <button class="faq-question">
+            <span>What payment methods do you accept?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>We accept cash, Venmo, CashApp, and Zelle. Payment is due upon completion of the service.</p>
+          </div>
+        </div>
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="150">
+          <button class="faq-question">
+            <span>Do I need to do anything to prepare my car?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Just remove any personal items and valuables from the car before your appointment. Everything else is taken care of.</p>
+          </div>
+        </div>
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+          <button class="faq-question">
+            <span>Is there a satisfaction guarantee?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Absolutely. If you're not happy with any part of the service, we'll fix it on the spot at no extra charge. Your satisfaction is 100% guaranteed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-card" data-aos="fade-up">
+          <div class="contact-icon">📍</div>
+          <h4>Location</h4>
+          <p>Newburgh, Indiana<br>Mobile service available</p>
+        </div>
+        <div class="contact-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="contact-icon">📞</div>
+          <h4>Phone / Text</h4>
+          <p><a href="tel:8122023585">(812) 202-3585</a></p>
+        </div>
+        <div class="contact-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="contact-icon">🕐</div>
+          <h4>Hours</h4>
+          <p>Mon–Sat: 8am – 6pm<br>Sun: By appointment</p>
+        </div>
+        <div class="contact-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="contact-icon">📧</div>
+          <h4>Email</h4>
+          <!-- ✅ Replace with your real email -->
+          <p><a href="mailto:ivanpokhylchuk@gmail.com">ivanpokhylchuk@gmail.com</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="#" class="nav-logo" style="margin-bottom:0.4rem">
+            <span class="logo-apex">IVAN</span><span class="logo-detail">DETAIL</span>
+          </a>
+          <p>Professional auto detailing in Newburgh, IN.<br>Ideal Vehicle Appearance &amp; Neatness.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#services">Services</a>
+          <a href="#process">Process</a>
+          <a href="#testimonials">Reviews</a>
+          <a href="#faq">FAQ</a>
+          <a href="#booking">Book Now</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 IVAN Detail Co. All rights reserved.</span>
+        <span>Newburgh, Indiana</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top button -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+  <!-- ✅ Relative path — works on GitHub Pages -->
+  <script src="static/js/main.js"></script>
+</body>
+</html>
