@@ -112,6 +112,21 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
+  // ───────────────────────────────────────────
+  // ⭐ FETCH BOOKED DATES FROM BACKEND
+  // ───────────────────────────────────────────
+  async function getBookedDates() {
+    try {
+      const res = await fetch("https://script.google.com/macros/s/AKfycbyD-GjASwFTY-yYU0LHa0QUdaFuY0kYmd2rghOeJDAkx0FQSgtD-7Kf75FG8Cb_ztnv/exec?booked_dates=true");
+      const data = await res.json();
+      return data.booked || [];
+    } catch (err) {
+      console.error("Failed to load booked dates:", err);
+      return [];
+    }
+  }
+
+
   // ── Form Submission ───────────────────────
   const form = document.getElementById('bookingForm');
   const successMsg = document.getElementById('formSuccess');
@@ -128,28 +143,15 @@ document.addEventListener('DOMContentLoaded', () => {
     btnLoading.style.display = 'inline';
     submitBtn.disabled = true;
 
-    // Collect form data as object
-    const formData = {
-      first_name: form.first_name.value.trim(),
-      last_name:  form.last_name.value.trim(),
-      phone:      form.phone.value.trim(),
-      email:      form.email.value.trim(),
-      vehicle:    form.vehicle.value.trim(),
-      date:       form.date.value,
-      service:    form.service.value,
-      notes:      form.notes.value.trim(),
-    };
+    const fd = new FormData(form);
 
     try {
-      const fd = new FormData(form);
-
       const response = await fetch(form.action, {
         method: 'POST',
         body: fd
       });
 
-
-     const data = await response.json();
+      const data = await response.json();
 
       if (data.success) {
         successMsg.style.display = 'block';
@@ -165,14 +167,11 @@ document.addEventListener('DOMContentLoaded', () => {
       errorMsg.style.display = 'block';
       errorMsg.textContent = error.message || 'Something went wrong. Please try again.';
     } finally {
-      // Reset button
       btnText.style.display = 'inline';
       btnLoading.style.display = 'none';
       submitBtn.disabled = false;
     }
   });
-
-
 
 
   // ── Input Focus Effects ───────────────────
@@ -195,13 +194,116 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: true });
 
 
-  // ── Min date for date picker ──────────────
-  const dateInput = document.querySelector('input[type="date"]');
-  if (dateInput) {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    dateInput.min = tomorrow.toISOString().split('T')[0];
+  // ── Custom Calendar Widget ───────────────
+  const calWrapper  = document.getElementById('calWrapper');
+  const calDisplay  = document.getElementById('calDisplay');
+  const calHidden   = document.getElementById('calHidden');
+  const calDropdown = document.getElementById('calDropdown');
+  const calDays     = document.getElementById('calDays');
+  const calMonthLabel = document.getElementById('calMonthLabel');
+  const calPrev     = document.getElementById('calPrev');
+  const calNext     = document.getElementById('calNext');
+
+  if (calWrapper) {
+    let calYear, calMonth, bookedDates = [];
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+
+    function toISO(d) {
+      return d.toISOString().split('T')[0];
+    }
+
+    function renderCal() {
+      const months = ['January','February','March','April','May','June',
+                      'July','August','September','October','November','December'];
+      calMonthLabel.textContent = months[calMonth] + ' ' + calYear;
+      calDays.innerHTML = '';
+      const first = new Date(calYear, calMonth, 1).getDay();
+      const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+      for (let i = 0; i < first; i++) {
+        const blank = document.createElement('span');
+        blank.classList.add('cal-day', 'cal-day--empty');
+        calDays.appendChild(blank);
+      }
+      for (let d = 1; d <= daysInMonth; d++) {
+        const date = new Date(calYear, calMonth, d);
+        date.setHours(0,0,0,0);
+        const iso = toISO(date);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = d;
+        btn.classList.add('cal-day');
+        if (date < tomorrow) {
+          btn.classList.add('cal-day--past');
+          btn.disabled = true;
+        } else if (bookedDates.includes(iso)) {
+          btn.classList.add('cal-day--booked');
+          btn.disabled = true;
+          btn.title = 'Already booked';
+        } else {
+          btn.classList.add('cal-day--avail');
+          btn.addEventListener('click', () => {
+            calHidden.value = iso;
+            const display = new Date(calYear, calMonth, d);
+            calDisplay.value = display.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+            calDropdown.classList.remove('open');
+            calDisplay.classList.remove('cal-display--open');
+          });
+        }
+        if (calHidden.value === iso) btn.classList.add('cal-day--selected');
+        calDays.appendChild(btn);
+      }
+    }
+
+    function openCal() {
+      const now = new Date();
+      calYear  = calYear  || now.getFullYear();
+      calMonth = calMonth !== undefined ? calMonth : now.getMonth();
+      renderCal();
+      calDropdown.classList.toggle('open');
+      calDisplay.classList.toggle('cal-display--open');
+    }
+
+    calDisplay.addEventListener('click', openCal);
+
+    calPrev.addEventListener('click', () => {
+      calMonth--;
+      if (calMonth < 0) { calMonth = 11; calYear--; }
+      renderCal();
+    });
+    calNext.addEventListener('click', () => {
+      calMonth++;
+      if (calMonth > 11) { calMonth = 0; calYear++; }
+      renderCal();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!calWrapper.contains(e.target)) {
+        calDropdown.classList.remove('open');
+        calDisplay.classList.remove('cal-display--open');
+      }
+    });
+
+    // Load booked dates and re-render
+    getBookedDates().then(dates => {
+      bookedDates = dates;
+      if (calDropdown.classList.contains('open')) renderCal();
+    });
   }
+
+
+  // ── FAQ Toggle ───────────────────────────
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      // Open clicked if it wasn't already open
+      if (!isOpen) item.classList.add('open');
+    });
+  });
 
 
   // ── Back to Top ───────────────────────────
@@ -218,7 +320,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.gallery-item').forEach(item => {
     item.addEventListener('click', () => {
       const label = item.querySelector('.gallery-overlay span')?.textContent || 'Photo';
-      // Only open if it's a real image (not placeholder)
       const img = item.querySelector('img');
       if (!img) return;
       const overlay = document.createElement('div');

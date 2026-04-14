@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <!-- ✅ Relative path — works on GitHub Pages -->
-  <link rel="stylesheet" href="static/css/style.css" />
+  <link rel="stylesheet" href="/static/css/style.css" />
 </head>
 <body>
 
@@ -358,7 +358,7 @@
           <form
             class="booking-form"
             id="bookingForm"
-            action="https://script.google.com/macros/s/AKfycbzEJrCUWA-kkiQwNLvJLYtGGXVCyg30rbLQLGWI842njqaaxFpdK5vBxlXjIP9pMUYl/exec"
+            action="https://script.google.com/macros/s/AKfycbyD-GjASwFTY-yYU0LHa0QUdaFuY0kYmd2rghOeJDAkx0FQSgtD-7Kf75FG8Cb_ztnv/exec"
             method="POST"
           >
             <!-- Hidden fields for better email formatting -->
@@ -392,7 +392,25 @@
               </div>
               <div class="form-group">
                 <label>Preferred Date</label>
-                <input type="date" name="date" required />
+                <div class="cal-wrapper" id="calWrapper">
+                  <input type="text" id="calDisplay" class="cal-display" placeholder="Select a date" readonly />
+                  <input type="hidden" name="date" id="calHidden" required />
+                  <div class="cal-dropdown" id="calDropdown">
+                    <div class="cal-header">
+                      <button type="button" class="cal-nav" id="calPrev">&#8249;</button>
+                      <span class="cal-month-label" id="calMonthLabel"></span>
+                      <button type="button" class="cal-nav" id="calNext">&#8250;</button>
+                    </div>
+                    <div class="cal-weekdays">
+                      <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+                    </div>
+                    <div class="cal-days" id="calDays"></div>
+                    <div class="cal-legend">
+                      <span class="cal-legend-dot cal-legend-dot--booked"></span><span>Booked</span>
+                      <span class="cal-legend-dot cal-legend-dot--avail"></span><span>Available</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="form-group full">
@@ -537,9 +555,6 @@
   </footer>
 
   <!-- Back to top button -->
-  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
-
-  <!-- ✅ Relative path — works on GitHub Pages -->
-  <script src="static/js/main.js"></script>
-</body>
-</html>
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">&#8679;</button>
+  <script src="/static/js/main.js"></script>
+  </body>
