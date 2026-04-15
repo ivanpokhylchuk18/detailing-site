@@ -293,6 +293,140 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
+  // ── Reviews System ───────────────────────
+  // Fetches verified reviews from your NEW separate Google Sheet,
+  // builds a star-rating summary, and renders a carousel.
+  // 🔁 REPLACE THIS URL WITH YOUR NEW REVIEWS-ONLY SCRIPT URL
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4UhyXhXp1zzM-KYGmlOl5H2-DOfMswuBTymVesLDUgaMQwilNT_OC78m6HAbroN0p/exec";
+
+  async function loadReviews() {
+    const carousel   = document.getElementById('reviewsCarousel');
+    const loading    = document.getElementById('reviewsLoading');
+    const empty      = document.getElementById('reviewsEmpty');
+    const dotsWrap   = document.getElementById('rnavDots');
+    const prevBtn    = document.getElementById('rnavPrev');
+    const nextBtn    = document.getElementById('rnavNext');
+    if (!carousel) return;
+
+    let reviews = [];
+    try {
+      const res  = await fetch(APPS_SCRIPT_URL + '?get_reviews=true');
+      const data = await res.json();
+      reviews = (data.reviews || []).filter(r => r.approved !== false);
+    } catch (e) {
+      console.warn('Reviews fetch failed:', e);
+    }
+
+    // Remove loader
+    loading && loading.remove();
+
+    if (!reviews.length) {
+      empty && (empty.style.display = 'block');
+      document.getElementById('rnavPrev') && (document.getElementById('rnavPrev').style.display = 'none');
+      document.getElementById('rnavNext') && (document.getElementById('rnavNext').style.display = 'none');
+      return;
+    }
+
+    // ── Build summary stats ────────────────────
+    const total  = reviews.length;
+    const avg    = reviews.reduce((s, r) => s + (r.rating || 5), 0) / total;
+    const counts = [0,0,0,0,0]; // index 0 = 1-star, 4 = 5-star
+    reviews.forEach(r => { const s = Math.round(r.rating || 5); if (s>=1&&s<=5) counts[s-1]++; });
+
+    const avgEl = document.getElementById('avgRating');
+    const starsEl = document.getElementById('summaryStars');
+    const countEl = document.getElementById('reviewCount');
+    if (avgEl) avgEl.textContent = avg.toFixed(1);
+    if (starsEl) starsEl.textContent = '★'.repeat(Math.round(avg)) + '☆'.repeat(5 - Math.round(avg));
+    if (countEl) countEl.textContent = total;
+
+    // Animate rating bars
+    const bars = document.querySelectorAll('#reviewsBars .rbar-fill');
+    bars.forEach((bar, i) => {
+      const starNum = 5 - i; // bars go 5→1
+      const cnt = counts[starNum - 1];
+      const pct = total ? Math.round((cnt / total) * 100) : 0;
+      bar.closest('.rbar-row').querySelector('.rbar-n').textContent = cnt;
+      setTimeout(() => { bar.style.width = pct + '%'; }, 200 + i * 60);
+    });
+
+    // ── Build carousel cards ───────────────────
+    const VISIBLE = window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+    let currentSlide = 0;
+    const totalSlides = Math.ceil(total / VISIBLE);
+
+    function starsHTML(n) {
+      const full = Math.round(n || 5);
+      return '<span class="t-stars">' + '★'.repeat(full) + '<span style="opacity:.3">' + '★'.repeat(5-full) + '</span></span>';
+    }
+
+    function renderSlide(idx) {
+      carousel.innerHTML = '';
+      const start = idx * VISIBLE;
+      for (let i = start; i < Math.min(start + VISIBLE, total); i++) {
+        const r = reviews[i];
+        const initial = (r.name || 'A').charAt(0).toUpperCase();
+        const relTime = r.time_ago || r.date || '';
+        const card = document.createElement('div');
+        card.className = 'testimonial-card t-card-anim';
+        card.innerHTML = `
+          <div class="t-card-top">
+            ${starsHTML(r.rating)}
+            <span class="t-source" title="Verified Google Review">
+              <svg viewBox="0 0 24 24" width="16" height="16"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+            </span>
+          </div>
+          <p class="t-text">"${escapeHTML(r.review || r.text || '')}"</p>
+          <div class="t-author">
+            <div class="t-avatar">${initial}</div>
+            <div>
+              <div class="t-name">${escapeHTML(r.name || 'Customer')}</div>
+              <div class="t-vehicle">${escapeHTML(r.vehicle || relTime || 'Verified Customer')}</div>
+            </div>
+          </div>`;
+        carousel.appendChild(card);
+        // Trigger animation
+        requestAnimationFrame(() => requestAnimationFrame(() => card.classList.add('t-card-visible')));
+      }
+
+      // Update dots
+      dotsWrap.innerHTML = '';
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'rnav-dot' + (i === idx ? ' active' : '');
+        dot.setAttribute('aria-label', 'Go to slide ' + (i+1));
+        dot.addEventListener('click', () => { currentSlide = i; renderSlide(i); });
+        dotsWrap.appendChild(dot);
+      }
+
+      prevBtn.disabled = (idx === 0);
+      nextBtn.disabled = (idx === totalSlides - 1);
+    }
+
+    prevBtn.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; renderSlide(currentSlide); }});
+    nextBtn.addEventListener('click', () => { if (currentSlide < totalSlides - 1) { currentSlide++; renderSlide(currentSlide); }});
+
+    // Swipe support
+    let touchStartX = 0;
+    carousel.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+    carousel.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) {
+        if (dx < 0 && currentSlide < totalSlides - 1) { currentSlide++; renderSlide(currentSlide); }
+        if (dx > 0 && currentSlide > 0) { currentSlide--; renderSlide(currentSlide); }
+      }
+    }, { passive: true });
+
+    renderSlide(0);
+  }
+
+  function escapeHTML(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  loadReviews();
+
+
   // ── FAQ Toggle ───────────────────────────
   document.querySelectorAll('.faq-question').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -337,5 +471,59 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.appendChild(overlay);
     });
   });
+
+
+  // ───────────────────────────────────────────
+  // ⭐ NEW: REVIEW SUBMISSION MODAL LOGIC
+  // ───────────────────────────────────────────
+  const modal = document.getElementById('reviewModal');
+  const openBtns = document.querySelectorAll('#openReviewBtn, #emptyReviewBtn');
+  const closeBtn = document.getElementById('closeReviewModal');
+  const reviewForm = document.getElementById('customerReviewForm');
+  const modalMsg = document.getElementById('reviewModalMsg');
+
+  function openModal() {
+    if (modal) modal.style.display = 'block';
+  }
+  function closeModal() {
+    if (modal) modal.style.display = 'none';
+    if (modalMsg) modalMsg.innerHTML = '';
+  }
+
+  openBtns.forEach(btn => btn.addEventListener('click', openModal));
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  if (reviewForm) {
+    reviewForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(reviewForm);
+      formData.append('action', 'submit_review');
+
+      try {
+        const response = await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          body: formData
+        });
+        const result = await response.json();
+        if (result.success) {
+          modalMsg.innerHTML = '<span style="color:#6bcf7f;">✓ Thank you! Your review will appear shortly.</span>';
+          reviewForm.reset();
+          setTimeout(() => {
+            closeModal();
+            // Optionally reload reviews after a few seconds
+            setTimeout(() => loadReviews(), 2000);
+          }, 2000);
+        } else {
+          throw new Error(result.error || 'Submission failed');
+        }
+      } catch (err) {
+        modalMsg.innerHTML = '<span style="color:var(--red);">❌ Error submitting review. Please try again or contact us.</span>';
+        console.error(err);
+      }
+    });
+  }
 
 });

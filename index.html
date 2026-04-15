@@ -11,7 +11,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <!-- ✅ Relative path — works on GitHub Pages -->
   <link rel="stylesheet" href="static/css/style.css" />
 </head>
 <body>
@@ -133,7 +132,7 @@
           </ul>
           <div class="card-price">
             <span class="price-from">From</span>
-            <span class="price-num">$120</span>
+            <span class="price-num">$75</span>
           </div>
           <a href="#booking" class="card-cta">Book This</a>
         </div>
@@ -160,7 +159,7 @@
           </ul>
           <div class="card-price">
             <span class="price-from">From</span>
-            <span class="price-num">$180</span>
+            <span class="price-num">$80</span>
           </div>
           <a href="#booking" class="card-cta">Book This</a>
         </div>
@@ -188,7 +187,7 @@
           </ul>
           <div class="card-price">
             <span class="price-from">From</span>
-            <span class="price-num price-num--gold">$250</span>
+            <span class="price-num price-num--gold">$130</span>
           </div>
           <a href="#booking" class="card-cta card-cta--gold">Book This →</a>
         </div>
@@ -282,48 +281,89 @@
   <!-- TESTIMONIALS -->
   <section class="testimonials" id="testimonials">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header" data-aos="fade-up">
         <span class="section-tag">What Clients Say</span>
         <h2 class="section-title">Reviews</h2>
-        <p class="section-sub">Real customers, real results.</p>
+        <p class="section-sub">Real customers, verified through Google.</p>
       </div>
-      <div class="testimonials-grid">
-        <div class="testimonial-card" data-aos="fade-up">
-          <div class="t-stars">★★★★★</div>
-          <p class="t-text">"Ivan did an absolutely incredible job on my truck. The interior looked better than when I bought it. Highly recommend!"</p>
-          <div class="t-author">
-            <div class="t-avatar">M</div>
-            <div>
-              <div class="t-name">Marcus T.</div>
-              <div class="t-vehicle">2019 Ford F-150</div>
-            </div>
+
+      <!-- Rating Summary Bar -->
+      <div class="reviews-summary" data-aos="fade-up">
+        <div class="reviews-score">
+          <span class="reviews-big-num" id="avgRating">5.0</span>
+          <div class="reviews-stars-big" id="summaryStars">★★★★★</div>
+          <span class="reviews-count-label"><span id="reviewCount">0</span> Google Reviews</span>
+        </div>
+        <div class="reviews-bars" id="reviewsBars">
+          <div class="rbar-row"><span>5★</span><div class="rbar-track"><div class="rbar-fill" style="width:0%" data-pct="0"></div></div><span class="rbar-n">0</span></div>
+          <div class="rbar-row"><span>4★</span><div class="rbar-track"><div class="rbar-fill rbar-fill--4" style="width:0%" data-pct="0"></div></div><span class="rbar-n">0</span></div>
+          <div class="rbar-row"><span>3★</span><div class="rbar-track"><div class="rbar-fill rbar-fill--3" style="width:0%" data-pct="0"></div></div><span class="rbar-n">0</span></div>
+          <div class="rbar-row"><span>2★</span><div class="rbar-track"><div class="rbar-fill rbar-fill--2" style="width:0%" data-pct="0"></div></div><span class="rbar-n">0</span></div>
+          <div class="rbar-row"><span>1★</span><div class="rbar-track"><div class="rbar-fill rbar-fill--1" style="width:0%" data-pct="0"></div></div><span class="rbar-n">0</span></div>
+        </div>
+        <button class="btn-leave-review" id="openReviewBtn">
+          <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="currentColor"/></svg>
+          Write a Review
+        </button>
+      </div>
+
+      <!-- Review Cards Carousel -->
+      <div class="reviews-carousel-wrap" data-aos="fade-up">
+        <div class="reviews-carousel" id="reviewsCarousel">
+          <div class="reviews-loading" id="reviewsLoading">
+            <div class="reviews-spinner"></div>
+            <span>Loading reviews...</span>
           </div>
         </div>
-        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="t-stars">★★★★★</div>
-          <p class="t-text">"Got the All-in-One package and my car looks brand new. Paint is shining, interior smells amazing. Worth every dollar."</p>
-          <div class="t-author">
-            <div class="t-avatar">S</div>
-            <div>
-              <div class="t-name">Sarah K.</div>
-              <div class="t-vehicle">2021 Honda Accord</div>
-            </div>
-          </div>
+        <div class="reviews-nav">
+          <button class="rnav-btn" id="rnavPrev" aria-label="Previous">&#8592;</button>
+          <div class="rnav-dots" id="rnavDots"></div>
+          <button class="rnav-btn" id="rnavNext" aria-label="Next">&#8594;</button>
         </div>
-        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="t-stars">★★★★★</div>
-          <p class="t-text">"Super professional, showed up on time, and the results were insane. My black car has zero swirl marks now. Booked again already."</p>
-          <div class="t-author">
-            <div class="t-avatar">D</div>
-            <div>
-              <div class="t-name">Devon R.</div>
-              <div class="t-vehicle">2020 BMW 3 Series</div>
-            </div>
-          </div>
-        </div>
+      </div>
+
+      <div class="reviews-empty" id="reviewsEmpty" style="display:none">
+        <p>Be the first to leave a review!</p>
+        <button id="emptyReviewBtn" class="btn-primary">Write a Review</button>
       </div>
     </div>
   </section>
+
+  <!-- REVIEW MODAL (hidden by default) -->
+  <div id="reviewModal" class="review-modal">
+    <div class="review-modal-content">
+      <span class="review-modal-close" id="closeReviewModal">&times;</span>
+      <h3>Share Your Experience</h3>
+      <form id="customerReviewForm">
+        <input type="hidden" name="action" value="submit_review">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" name="name" placeholder="John Doe" required>
+        </div>
+        <div class="form-group">
+          <label>Vehicle (Year, Make, Model)</label>
+          <input type="text" name="vehicle" placeholder="2022 Tesla Model 3" required>
+        </div>
+        <div class="form-group">
+          <label>Rating</label>
+          <select name="rating" required>
+            <option value="">Select rating</option>
+            <option value="5">★★★★★ – Excellent</option>
+            <option value="4">★★★★☆ – Very Good</option>
+            <option value="3">★★★☆☆ – Average</option>
+            <option value="2">★★☆☆☆ – Poor</option>
+            <option value="1">★☆☆☆☆ – Terrible</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Your Review</label>
+          <textarea name="review" rows="4" placeholder="Tell us about your experience..." required></textarea>
+        </div>
+        <button type="submit" class="btn-primary full-btn">Submit Review</button>
+        <div id="reviewModalMsg" style="margin-top:1rem; font-size:0.85rem;"></div>
+      </form>
+    </div>
+  </div>
 
   <!-- BOOKING -->
   <section class="booking" id="booking">
@@ -344,24 +384,12 @@
           </div>
         </div>
         <div class="booking-right" data-aos="fade-left">
-          <!-- 
-            ══════════════════════════════════════════════════
-            FORMSPREE SETUP (FREE — replaces Flask backend)
-            ══════════════════════════════════════════════════`
-            1. Go to https://formspree.io and sign up free
-            2. Create a new form → copy your form ID
-            3. Replace YOUR_FORMSPREE_ID below with it
-               Example: https://formspree.io/f/xpwzabcd
-            4. Every submission emails you AND logs to your dashboard
-            ══════════════════════════════════════════════════
-          -->
           <form
             class="booking-form"
             id="bookingForm"
             action="https://script.google.com/macros/s/AKfycbyD-GjASwFTY-yYU0LHa0QUdaFuY0kYmd2rghOeJDAkx0FQSgtD-7Kf75FG8Cb_ztnv/exec"
             method="POST"
           >
-            <!-- Hidden fields for better email formatting -->
             <input type="hidden" name="_subject" value="New Booking Request — IVAN Detail Co." />
             <input type="hidden" name="_next" value="#booking" />
 
@@ -521,7 +549,6 @@
         <div class="contact-card" data-aos="fade-up" data-aos-delay="300">
           <div class="contact-icon">📧</div>
           <h4>Email</h4>
-          <!-- ✅ Replace with your real email -->
           <p><a href="mailto:ivanpokhylchuk@gmail.com">ivanpokhylchuk@gmail.com</a></p>
         </div>
       </div>
@@ -554,8 +581,7 @@
     </div>
   </footer>
 
-  <!-- Back to top button fr -->
   <button class="back-to-top" id="backToTop" aria-label="Back to top">&#8679;</button>
   <script src="static/js/main.js"></script>
-  </body>
-  </html>
+</body>
+</html>
